@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 route::post('/register', [ UserController::class, 'RegisterUser']);
+route::post('/login', [ UserController::class, 'LoginUser']);
