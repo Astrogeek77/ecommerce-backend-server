@@ -20,11 +20,23 @@ class UserController extends Controller
 
     function LoginUser(Request $req){
         $user= User::where('email',$req->email)->first();
-        if(!$user || !Hash::check($req->password,$user->password))
+        if(!$user)
         {
-            return ["error"=>"Email or Password Incorrect"];
+            echo '<script>alert("no user found")</script>';
+            redirect()->route('/register');
+            return ["error"=>"no user found"];    
+        } 
+        else if (!Hash::check($req->password, $user->password)) 
+        {
+            echo '<script>alert("password incorrect")</script>';
+            redirect()->route('/login'); 
+            return ["error"=>"password incorrect"];     
+        } 
+        else 
+        {
+            return $user;
         }
-        return $user;
+        
     }
     
 }

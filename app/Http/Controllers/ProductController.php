@@ -27,40 +27,44 @@ class ProductController extends Controller
         return response()->json(["status" => 200]);
     }
 
-    // function list()
-    // {
-    //     return Product::all();
-    // }
-    // function delete($id)
-    // {
-    //     $result= Product::where('id',$id)->delete();
-    //     if($result)
-    //     {
-    //         return ["result"=>"product has been delete"];
-    //     }
-    //     else{
-    //         return ["result"=>"Operation failed"];
-    //     }
-    // }
-    // function getProduct($id)
-    // {
-    //     return Product::find($id);
-    // }
+    function ShowList()
+    {
+        return Product::all();
+    }
+    
+    function DeleteProduct($id)
+    {
+        $result= Product::where('id',$id)->delete();
+        if($result)
+        {
+            return ["result"=>"product has been Successfully deleted"];
+        }
+        else{
+            return ["result"=>"Operation failed"];
+        }
+    }
 
-    // function updateProduct($id, Request $req)
-    // {
-    //     $product= Product::find($id);
-    //     $product->name=$req->input('name');
-    //     $product->price=$req->input('price');
-    //     $product->description=$req->input('description');
-    //     if($req->file('file'))
-    //     {
-    //         $product->file_path=$req->file('file')->store('products');
+    function ShowProduct($id)
+    {
+        $result = Product::find($id);
+        if($result){
+            return $result;
+        } else {
+            return ["error"=>"no such product"];
+        }
+    }
 
-    //     }
-    //     $product->save();
-    //     return $product;
-    // }
+    function UpdateProduct($id, Request $req)
+    {
+        $product= Product::find($id);
+        $product->name=$req->input('name');
+        $product->price=$req->input('price');
+        $product->description=$req->input('description');
+        $product->file_path=$req->input('file_path');
+        $product->save();
+        return $product;
+    }
+    
     // function search($key)
     // {
     //     return Product::where('name','Like',"%$key%")->get();
