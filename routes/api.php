@@ -31,3 +31,5 @@ Route::get('/product/{id}', [ProductController::class, 'ShowProduct']);
 Route::put('/update/{id}', [ProductController::class, 'UpdateProduct']);
 Route::delete('/delete/{id}', [ProductController::class, 'DeleteProduct']);
 
+Route::get('/search/{query}', [ProductController::class, 'SearchProduct']);
+

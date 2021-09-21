@@ -65,8 +65,8 @@ class ProductController extends Controller
         return $product;
     }
     
-    // function search($key)
-    // {
-    //     return Product::where('name','Like',"%$key%")->get();
-    // }
+    function SearchProduct($query)
+    {
+        return Product::where('name','Like',"%$query%")->get();
+    }
 }
