@@ -21,10 +21,12 @@ class ProductController extends Controller
         $product = Product::create([
             "name" => $req->name,
             "file_path" => $req->file_path,
+            "category" => $req->category,
             "description" => $req->description,
             "price" => $req->price,
         ]);       
-        return response()->json(["status" => 200]);
+        // error_log($product);
+        return response()->json(["Post Created Successfully!"]);
     }
 
     function ShowList()
@@ -37,10 +39,10 @@ class ProductController extends Controller
         $result= Product::where('id',$id)->delete();
         if($result)
         {
-            return ["result"=>"product has been Successfully deleted"];
+            return response()->json(["Product has been Successfully Deleted!"]);
         }
         else{
-            return ["result"=>"Operation failed"];
+            return response()->json(["Operation failed!"]);
         }
     }
 
@@ -50,19 +52,25 @@ class ProductController extends Controller
         if($result){
             return $result;
         } else {
-            return ["error"=>"no such product"];
+            return response()->json(["No Such Product"]);
         }
     }
 
     function UpdateProduct($id, Request $req)
     {
+        // error_log("UPDATE");
+        // error_log($req);
+        // error_log("++++++++++++++++++++++++++");
         $product= Product::find($id);
         $product->name=$req->input('name');
         $product->price=$req->input('price');
+        $product->category=$req->category;
         $product->description=$req->input('description');
         $product->file_path=$req->input('file_path');
-        $product->save();
-        return $product;
+
+        if( $product->save()){
+            return response()->json(["Product Successfully Updated!"]);
+        }
     }
     
     function SearchProduct($query)
