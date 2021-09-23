@@ -24,7 +24,10 @@ class ProductController extends Controller
             "category" => $req->category,
             "description" => $req->description,
             "price" => $req->price,
-        ]);       
+        ]); 
+        error_log("_____________________");
+        error_log($req->category);   
+        error_log("_____________________");
         // error_log($product);
         return response()->json(["Post Created Successfully!"]);
     }
