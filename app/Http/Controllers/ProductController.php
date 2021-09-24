@@ -78,6 +78,15 @@ class ProductController extends Controller
     
     function SearchProduct($query)
     {
-        return Product::where('name','Like',"%$query%")->get();
+        // return Product::where([
+        //     ["name",'Like',"%$query%"],
+        //     // ["category",'Like',"%$query%"],
+        // ])->get();
+        return Product::where("name",'Like',"%$query%")
+                        ->orWhere("category",'Like',"%$query%")
+                        ->orWhere('id', "=", "$query%")
+                        // ->orWhere('description', 'like', "%$query%")
+                        // ->orWhere("price",'<=',"$query")
+                        ->get();
     }
 }
